@@ -1,0 +1,15 @@
+---
+ - name: Copy backup bash script to root folder
+   template: src=backup_mysql.sh dest=/root/
+
+ - name: permissions for run backup skript
+   command: chmod 700 backup_mysql.sh
+
+ - name: Create backup folder
+   command: mkdir -p '/usr/backup_mysql'  
+
+ - name: Install cron
+   yum: name=cronie state=present
+
+ - name: Configure daily backup
+   template: src=root dest=/var/spool/cron/

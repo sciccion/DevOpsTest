@@ -1,0 +1,10 @@
+---
+ - name: Install phpmyadmin
+   yum: name=phpmyadmin state=present
+
+ - name: Copy phpmyadmin configuration
+   template: src=phpMyAdmin.conf dest=/etc/httpd/conf.d/phpMyAdmin.conf
+
+ - name: Copy phpmyadmin configuration
+   template: src=config.inc.php dest=/etc/phpMyAdmin/config.inc.php
+   notify: restart httpd

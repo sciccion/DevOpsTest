@@ -1,0 +1,15 @@
+---
+- name: Install WordPress, MySQL, Nginx, PHP-FPM, Apache, phpmyadmin
+  hosts: all
+
+  roles:
+    - common
+    - mysql
+    - httpd
+  #  - php-fpm
+    - phpmyadmin
+    - wordpress
+    - nginx
+    - backup
+    - vsftpd
+

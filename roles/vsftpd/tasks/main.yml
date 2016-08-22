@@ -1,0 +1,42 @@
+---
+
+ - name: Install FTP server
+   yum: name=vsftpd state=present
+
+ - name: Copy FTP configuration
+   template: src=vsftpd.conf dest=/etc/vsftpd/vsftpd.conf
+   notify: restart vsftpd
+
+ - name: Install FTP Client
+   yum: name=ftp state=present
+
+ - name: Create User Directory
+   command: mkdir -p /var/www/ftp/user
+
+ - name: Create FTP user
+   command: useradd -d '/var/www/ftp/user' -s /sbin/nologin ftpuser
+
+ - name: Create FTP user pass
+   command: echo 'Xer-78~!L' | passwd ftpuser --stdin
+
+ - name: User perm
+   command: chown -R ftpuser '/var/www/ftp/user'
+
+ - name: User permi
+   command: chmod 775 '/var/www/ftp/user'
+
+ - name: Create FTP user group
+   command: groupadd ftpusers
+
+ - name: Add user to FTP group
+   command: usermod -G ftpusers ftpuser
+
+ - name: Mount Site Directory to home Directory ftpuser
+   command: mount --bind /srv/wordpress /var/www/ftp/user
+
+ - name: Configure iptables
+   template: src=iptables dest=/etc/sysconfig/iptables
+   notify: restart iptables
+
+ - name: FTP demon autostart
+   command: chkconfig --levels 235 vsftpd on
