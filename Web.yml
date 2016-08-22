@@ -6,7 +6,6 @@
     - common
     - mysql
     - httpd
-  #  - php-fpm
     - phpmyadmin
     - wordpress
     - nginx
