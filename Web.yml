@@ -1,5 +1,5 @@
 ---
-- name: Install WordPress, MySQL, Nginx, PHP-FPM, Apache, phpmyadmin
+- name: Install Roles
   hosts: all
 
   roles:
